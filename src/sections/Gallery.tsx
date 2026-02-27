@@ -16,7 +16,7 @@ interface GalleryItem {
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    image: '/images/gallery-1.jpg',
+    image: './images/gallery-1.jpg',
     title: 'Royal Palace Wedding',
     couple: 'Sarah & Michael',
     date: 'June 2024',
@@ -26,7 +26,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 2,
-    image: '/images/gallery-2.jpg',
+    image: './images/gallery-2.jpg',
     title: 'French Garden Wedding',
     couple: 'Emma & William',
     date: 'May 2024',
@@ -36,7 +36,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 3,
-    image: '/images/gallery-3.jpg',
+    image: './images/gallery-3.jpg',
     title: 'Modern Minimalist Wedding',
     couple: 'Lisa & David',
     date: 'April 2024',
@@ -46,7 +46,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 4,
-    image: '/images/gallery-4.jpg',
+    image: './images/gallery-4.jpg',
     title: 'Romantic Crystal Ballroom',
     couple: 'Anna & James',
     date: 'March 2024',
@@ -56,7 +56,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 5,
-    image: '/images/wedding-scene-1.jpg',
+    image: './images/wedding-scene-1.jpg',
     title: 'Tuscan Romance',
     couple: 'Sophie & Marco',
     date: 'February 2024',
@@ -66,7 +66,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 6,
-    image: '/images/hero-welcome-sign.jpg',
+    image: './images/hero-welcome-sign.jpg',
     title: 'Classic European Wedding',
     couple: 'Victoria & Edward',
     date: 'January 2024',

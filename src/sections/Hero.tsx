@@ -34,7 +34,7 @@ const Hero = () => {
       {/* Background Image with Parallax */}
       <div className="absolute inset-0 parallax">
         <img
-          src="/images/hero-welcome-sign.jpg"
+          src="./images/hero-welcome-sign.jpg"
           alt="Elegant Wedding Welcome Sign"
           className="w-full h-full object-cover scale-110"
         />

@@ -19,7 +19,7 @@ const products: Product[] = [
     category: 'welcome',
     description: 'Crafted from premium clear acrylic with elegant metal stand, creating an unforgettable first impression for your wedding entrance. Personalize with names, date, and welcome message.',
     price: 'From $95',
-    image: '/images/product-welcome-sign.jpg',
+    image: './images/product-welcome-sign.jpg',
     features: ['Premium clear acrylic', 'Gold/silver metal stand', 'Personalized text', 'Multiple sizes available'],
   },
   {
@@ -28,7 +28,7 @@ const products: Product[] = [
     category: 'table',
     description: 'Elegant table number cards with gold foil numbers on clear modern design, guiding guests to their seats with understated luxury.',
     price: 'From $5 each',
-    image: '/images/product-table-numbers.jpg',
+    image: './images/product-table-numbers.jpg',
     features: ['Clear acrylic material', 'Gold foil printing', 'Numbers 1-50 available', 'Matching stands included'],
   },
   {
@@ -37,7 +37,7 @@ const products: Product[] = [
     category: 'place',
     description: 'Personalized place cards for each guest with beautiful calligraphy-style fonts, showing your attention to every detail.',
     price: 'From $4 each',
-    image: '/images/product-place-cards.jpg',
+    image: './images/product-place-cards.jpg',
     features: ['Personalized name customization', 'Multiple font options', 'Clear acrylic stands', 'Bulk discounts'],
   },
   {
@@ -46,7 +46,7 @@ const products: Product[] = [
     category: 'dancefloor',
     description: 'Custom dance floor decal featuring your names or monogram at the center of the dance floor, becoming the romantic focal point of your reception.',
     price: 'From $180',
-    image: '/images/product-dancefloor-decal.jpg',
+    image: './images/product-dancefloor-decal.jpg',
     features: ['Durable non-slip material', 'Custom pattern design', 'Professional installation', 'Easy to clean'],
   },
   {
@@ -55,7 +55,7 @@ const products: Product[] = [
     category: 'seating',
     description: 'Beautiful seating chart display to help guests find their seats quickly. Arrange by table layout or alphabetical order.',
     price: 'From $125',
-    image: '/images/product-seating-chart.jpg',
+    image: './images/product-seating-chart.jpg',
     features: ['Large display size', 'Clear layout design', 'Gold stand included', 'Reusable design'],
   },
   {
@@ -64,7 +64,7 @@ const products: Product[] = [
     category: 'bar',
     description: 'Elegant bar sign for your wedding reception, showcasing signature cocktail menus or the couple\'s favorite drink recommendations.',
     price: 'From $55',
-    image: '/images/product-bar-sign.jpg',
+    image: './images/product-bar-sign.jpg',
     features: ['Signature menu display', 'Elegant typography', 'Clear acrylic material', 'Tabletop stand'],
   },
 ];
