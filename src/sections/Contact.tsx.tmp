@@ -1,0 +1,299 @@
+import { useRef, useEffect, useState } from 'react';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, MessageCircle, Instagram, Heart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+
+const contactInfo = [
+  {
+    icon: Phone,
+    title: '电话咨询',
+    content: '+86 138 8888 8888',
+    description: '工作日 9:00-18:00',
+  },
+  {
+    icon: Mail,
+    title: '邮件咨询',
+    content: 'hello@elegantsigns.com',
+    description: '24小时内回复',
+  },
+  {
+    icon: MapPin,
+    title: '工作室地址',
+    content: '上海市静安区南京西路1266号',
+    description: '欢迎预约参观',
+  },
+  {
+    icon: Clock,
+    title: '工作时间',
+    content: '周一至周五 9:00-18:00',
+    description: '周末可预约',
+  },
+];
+
+const Contact = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    weddingDate: '',
+    message: '',
+  });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  return (
+    <section id="contact" ref={sectionRef} className="py-24 bg-ivory relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <span className="inline-block text-gold text-sm font-medium tracking-widest uppercase mb-4">
+            Get In Touch
+          </span>
+          <h2 className="font-serif text-4xl sm:text-5xl text-gray-800 mb-4">
+            联系我们
+          </h2>
+          <p className="font-script text-xl text-gray-500 max-w-2xl mx-auto">
+            期待与您一起，打造梦想中的婚礼标识
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Info */}
+          <div className={`transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="grid sm:grid-cols-2 gap-6 mb-10">
+              {contactInfo.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl p-6 shadow-elegant hover:shadow-elegant-lg transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gold transition-colors">
+                    <item.icon className="w-5 h-5 text-gold group-hover:text-white transition-colors" />
+                  </div>
+                  <h3 className="font-medium text-gray-800 mb-1">{item.title}</h3>
+                  <p className="text-gold font-medium text-sm mb-1">{item.content}</p>
+                  <p className="text-gray-400 text-xs">{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Social & Extra */}
+            <div className="bg-white rounded-2xl p-8 shadow-elegant">
+              <h3 className="font-serif text-xl text-gray-800 mb-4">关注我们</h3>
+              <p className="text-gray-500 text-sm mb-6">
+                关注我们的社交媒体，获取更多婚礼灵感与优惠信息
+              </p>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-white transition-all"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-white transition-all"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-white transition-all"
+                >
+                  <Heart className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className={`transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="bg-white rounded-2xl p-8 shadow-elegant-lg">
+              {isSubmitted ? (
+                <div className="text-center py-12">
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-10 h-10 text-green-500" />
+                  </div>
+                  <h3 className="font-serif text-2xl text-gray-800 mb-4">提交成功！</h3>
+                  <p className="text-gray-500 mb-6">
+                    感谢您的咨询，我们的婚礼顾问会在24小时内与您联系。
+                  </p>
+                  <Button
+                    onClick={() => {
+                      setIsSubmitted(false);
+                      setFormData({
+                        name: '',
+                        phone: '',
+                        email: '',
+                        weddingDate: '',
+                        message: '',
+                      });
+                    }}
+                    variant="outline"
+                    className="border-gold text-gold hover:bg-gold hover:text-white"
+                  >
+                    继续咨询
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <h3 className="font-serif text-2xl text-gray-800 mb-2">免费咨询</h3>
+                  <p className="text-gray-500 text-sm mb-6">
+                    填写以下信息，获取专属定制方案与报价
+                  </p>
+
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-gray-700">
+                          姓名 <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="您的姓名"
+                          required
+                          className="border-gray-200 focus:border-gold focus:ring-gold"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone" className="text-gray-700">
+                          电话 <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="联系电话"
+                          required
+                          className="border-gray-200 focus:border-gold focus:ring-gold"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-gray-700">
+                          邮箱
+                        </Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="您的邮箱"
+                          className="border-gray-200 focus:border-gold focus:ring-gold"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="weddingDate" className="text-gray-700">
+                          婚礼日期
+                        </Label>
+                        <Input
+                          id="weddingDate"
+                          name="weddingDate"
+                          type="date"
+                          value={formData.weddingDate}
+                          onChange={handleChange}
+                          className="border-gray-200 focus:border-gold focus:ring-gold"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="message" className="text-gray-700">
+                        咨询内容
+                      </Label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="请描述您的需求，如婚礼主题、喜欢的风格、需要定制的产品等..."
+                        rows={4}
+                        className="border-gray-200 focus:border-gold focus:ring-gold resize-none"
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gold hover:bg-gold-dark text-white py-6 rounded-full font-medium transition-all"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center gap-2">
+                          <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          提交中...
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-2">
+                          <Send className="w-4 h-4" />
+                          提交咨询
+                        </span>
+                      )}
+                    </Button>
+
+                    <p className="text-center text-gray-400 text-xs">
+                      提交即表示您同意我们的隐私政策，我们承诺保护您的个人信息
+                    </p>
+                  </form>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
+>
