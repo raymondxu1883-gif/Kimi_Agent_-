@@ -68,11 +68,26 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('https://formspree.io/f/mojnblvg', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      alert('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
