@@ -96,7 +96,7 @@ const Process = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {/* Step Card */}
-                <div className="group bg-ivory rounded-2xl p-6 h-full hover:bg-white hover:shadow-elegant-lg transition-all duration-300 border border-transparent hover:border-gold/20">
+                <div className="group bg-ivory rounded-2xl p-6 h-full hover:bg-white hover:shadow-elegant-lg hover:-translate-y-2 transition-all duration-500 border border-transparent hover:border-gold/20">
                   {/* Icon & Number */}
                   <div className="relative mb-6">
                     <div className="w-16 h-16 bg-white rounded-2xl shadow-elegant flex items-center justify-center group-hover:bg-gold group-hover:shadow-elegant-lg transition-all duration-300">

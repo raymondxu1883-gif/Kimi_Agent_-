@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Eye, Heart, ArrowRight } from 'lucide-react';
+import { Eye, Heart, ArrowRight, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface Product {
@@ -67,6 +67,33 @@ const products: Product[] = [
     image: './images/product-bar-sign.jpg',
     features: ['Signature menu display', 'Elegant typography', 'Clear acrylic material', 'Tabletop stand'],
   },
+  {
+    id: 7,
+    name: 'Monogram Sign',
+    category: 'welcome',
+    description: 'Custom monogram sign featuring your initials in an elegant design, perfect for your wedding entrance or reception space.',
+    price: 'From $85',
+    image: './images/hero-welcome-sign.jpg',
+    features: ['Custom monogram design', 'Premium acrylic', 'Multiple sizes', 'Gold/silver options'],
+  },
+  {
+    id: 8,
+    name: 'Wedding Program Holder',
+    category: 'table',
+    description: 'Elegant acrylic holders for your wedding programs, adding a touch of sophistication to your ceremony.',
+    price: 'From $3 each',
+    image: './images/product-table-numbers.jpg',
+    features: ['Clear acrylic', 'Sturdy design', 'Multiple styles', 'Bulk discounts'],
+  },
+  {
+    id: 9,
+    name: 'Photo Booth Backdrop',
+    category: 'decoration',
+    description: 'Custom photo booth backdrop with your names and wedding date, creating the perfect backdrop for memorable photos.',
+    price: 'From $150',
+    image: './images/gallery-1.jpg',
+    features: ['Custom design', 'High-quality material', 'Easy to install', 'Reusable'],
+  },
 ];
 
 const categories = [
@@ -74,12 +101,16 @@ const categories = [
   { id: 'welcome', name: 'Welcome Signs' },
   { id: 'table', name: 'Table Numbers' },
   { id: 'dancefloor', name: 'Dance Floor' },
+  { id: 'seating', name: 'Seating' },
+  { id: 'bar', name: 'Bar Signs' },
+  { id: 'decoration', name: 'Decorations' },
 ];
 
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -100,9 +131,13 @@ const Products = () => {
     return () => observer.disconnect();
   }, []);
 
-  const filteredProducts = activeCategory === 'all'
-    ? products
-    : products.filter((p) => p.category === activeCategory);
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
+    const matchesSearch = searchTerm === '' || 
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section id="products" ref={sectionRef} className="py-24 bg-ivory">
@@ -118,6 +153,32 @@ const Products = () => {
           <p className="font-script text-xl text-gray-500 max-w-2xl mx-auto">
             Each piece carries our pursuit of perfection, adding unique charm to your wedding
           </p>
+        </div>
+
+        {/* Search Bar */}
+        <div className={`max-w-md mx-auto mb-8 transition-all duration-700 delay-50 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+              <Search className="w-5 h-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search products..."
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent shadow-sm transition-all"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Category Filter */}
@@ -138,11 +199,11 @@ const Products = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProducts.map((product, index) => (
             <div
               key={product.id}
-              className={`group bg-white rounded-2xl overflow-hidden shadow-elegant hover-lift transition-all duration-700 ${
+              className={`group bg-white rounded-2xl overflow-hidden shadow-elegant hover:shadow-elegant-lg hover:-translate-y-2 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: `${150 + index * 100}ms` }}
@@ -153,6 +214,7 @@ const Products = () => {
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
@@ -221,6 +283,7 @@ const Products = () => {
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <div className="flex flex-col">

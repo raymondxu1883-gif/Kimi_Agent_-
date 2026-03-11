@@ -37,6 +37,7 @@ const Hero = () => {
           src="./images/hero-welcome-sign.jpg"
           alt="Elegant Wedding Welcome Sign"
           className="w-full h-full object-cover scale-110"
+          loading="lazy"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
@@ -58,18 +59,18 @@ const Hero = () => {
         </div>
 
         {/* Main Title */}
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-medium leading-tight mb-6 animate-fade-in-up">
+        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight mb-4 sm:mb-6 animate-fade-in-up">
           <span className="block">Make Your Wedding</span>
           <span className="block mt-2 text-gold-light italic">Unforgettable</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="font-script text-xl sm:text-2xl md:text-3xl text-white/90 mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <p className="font-script text-base sm:text-lg md:text-xl text-white/90 mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           Exquisite Acrylic Signs · Custom Design · Timeless Memories
         </p>
 
         {/* Description */}
-        <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <p className="text-white/70 text-xs sm:text-sm max-w-xs sm:max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
           From welcome signs to table numbers, from dance floor decals to seating charts,
           <br className="hidden sm:block" />
           we craft every detail for your special day.

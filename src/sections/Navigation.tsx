@@ -19,13 +19,21 @@ const Navigation = () => {
     { name: 'Process', href: '#process' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'Reviews', href: '#testimonials' },
+    { name: 'FAQ', href: '#faq' },
     { name: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // 平滑滚动到目标位置，考虑导航栏高度
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 80; // 80px 导航栏高度
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
     setIsMobileMenuOpen(false);
   };
@@ -66,7 +74,7 @@ const Navigation = () => {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8" role="navigation" aria-label="Main navigation">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -78,6 +86,8 @@ const Navigation = () => {
                   className={`text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold relative group ${
                     isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
+                  aria-label={`Navigate to ${link.name} section`}
+                  tabIndex={0}
                 >
                   {link.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
@@ -86,6 +96,8 @@ const Navigation = () => {
               <button
                 onClick={() => scrollToSection('#contact')}
                 className="px-6 py-2.5 bg-gold text-white text-sm font-medium rounded-full hover:bg-gold-dark transition-colors duration-300 shadow-elegant"
+                aria-label="Get a quote"
+                tabIndex={0}
               >
                 Get a Quote
               </button>
@@ -94,9 +106,12 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 rounded-lg transition-colors duration-300 ${
+              className={`md:hidden p-3 rounded-lg transition-colors duration-300 ${
                 isScrolled ? 'text-gray-800' : 'text-white'
               }`}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
+              tabIndex={0}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -110,7 +125,7 @@ const Navigation = () => {
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-8">
+        <div className="flex flex-col items-center justify-center h-full gap-8" role="navigation" aria-label="Mobile navigation">
           {navLinks.map((link, index) => (
             <a
               key={link.name}
@@ -121,6 +136,8 @@ const Navigation = () => {
               }}
               className="text-2xl font-serif text-gray-800 hover:text-gold transition-colors duration-300"
               style={{ animationDelay: `${index * 0.1}s` }}
+              aria-label={`Navigate to ${link.name} section`}
+              tabIndex={0}
             >
               {link.name}
             </a>
@@ -128,6 +145,8 @@ const Navigation = () => {
           <button
             onClick={() => scrollToSection('#contact')}
             className="mt-4 px-8 py-3 bg-gold text-white font-medium rounded-full hover:bg-gold-dark transition-colors duration-300"
+            aria-label="Get a quote"
+            tabIndex={0}
           >
             Get a Quote
           </button>

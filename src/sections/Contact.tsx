@@ -116,7 +116,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Info */}
           <div className={`transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="grid sm:grid-cols-2 gap-6 mb-10">
@@ -200,7 +200,9 @@ const Contact = () => {
                     Fill in your details below to receive a custom quote and design proposal
                   </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} className="space-y-5" aria-labelledby="form-title">
+                    <h4 id="form-title" className="sr-only">Contact form</h4>
+                    
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div className="space-y-2">
                         <Label htmlFor="name" className="text-gray-700">
@@ -213,6 +215,7 @@ const Contact = () => {
                           onChange={handleChange}
                           placeholder="Your name"
                           required
+                          aria-required="true"
                           className="border-gray-200 focus:border-gold focus:ring-gold"
                         />
                       </div>
@@ -228,6 +231,7 @@ const Contact = () => {
                           onChange={handleChange}
                           placeholder="Your phone number"
                           required
+                          aria-required="true"
                           className="border-gray-200 focus:border-gold focus:ring-gold"
                         />
                       </div>
@@ -282,6 +286,7 @@ const Contact = () => {
                       type="submit"
                       disabled={isSubmitting}
                       className="w-full bg-gold hover:bg-gold-dark text-white py-6 rounded-full font-medium transition-all"
+                      aria-label="Send inquiry"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">

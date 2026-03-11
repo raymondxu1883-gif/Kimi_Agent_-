@@ -117,7 +117,7 @@ const Testimonials = () => {
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-ivory rounded-2xl p-8 hover:shadow-elegant-lg transition-all duration-300 group"
+                className="bg-ivory rounded-2xl p-8 hover:shadow-elegant-lg hover:-translate-y-2 transition-all duration-500 group"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">

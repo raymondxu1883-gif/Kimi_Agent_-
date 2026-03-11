@@ -74,6 +74,36 @@ const galleryItems: GalleryItem[] = [
     guests: '250 guests',
     description: 'Classic European style where gold decorations complemented white floral arrangements beautifully, with the welcome sign becoming a popular photo spot for guests.',
   },
+  {
+    id: 7,
+    image: './images/product-welcome-sign.jpg',
+    title: 'Beachside Celebration',
+    couple: 'Emily & Daniel',
+    date: 'July 2024',
+    location: 'Bali, Indonesia',
+    guests: '100 guests',
+    description: 'Beachside wedding with tropical vibes, our acrylic signage with ocean-inspired designs perfectly complemented the natural surroundings.',
+  },
+  {
+    id: 8,
+    image: './images/product-seating-chart.jpg',
+    title: 'Vintage Elegance',
+    couple: 'Olivia & Henry',
+    date: 'August 2024',
+    location: 'Castle Howard, England',
+    guests: '180 guests',
+    description: 'Vintage-inspired wedding with classic typography on our acrylic signs, creating a timeless atmosphere in the historic castle setting.',
+  },
+  {
+    id: 9,
+    image: './images/product-dancefloor-decal.jpg',
+    title: 'Urban Chic Wedding',
+    couple: 'Mia & Ethan',
+    date: 'September 2024',
+    location: 'The Lofts at Prince, New York',
+    guests: '150 guests',
+    description: 'Modern urban wedding with geometric patterns on our dance floor decal, adding a contemporary touch to the industrial loft space.',
+  },
 ];
 
 const Gallery = () => {
@@ -116,22 +146,23 @@ const Gallery = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {galleryItems.map((item, index) => (
             <div
               key={item.id}
               className={`group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              } ${index === 0 || index === 5 ? 'md:col-span-2 lg:col-span-1' : ''}`}
+              } ${index === 0 || index === 5 || index === 8 ? 'md:col-span-2 lg:col-span-1' : ''}`}
               style={{ transitionDelay: `${index * 100}ms` }}
               onClick={() => setSelectedItem(item)}
             >
               {/* Image */}
-              <div className={`relative overflow-hidden ${index === 0 || index === 5 ? 'aspect-[16/10] md:aspect-[3/4]' : 'aspect-[3/4]'}`}>
+              <div className={`relative overflow-hidden ${index === 0 || index === 5 || index === 8 ? 'aspect-[16/10] md:aspect-[3/4]' : 'aspect-[3/4]'}`}>
                 <img
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
