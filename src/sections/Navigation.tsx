@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Heart } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,27 +15,16 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Products', href: '#products' },
-    { name: 'Process', href: '#process' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Reviews', href: '#testimonials' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'Products', href: '/products' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ];
 
+  const navigate = useNavigate();
+
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      // 平滑滚动到目标位置，考虑导航栏高度
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - 80; // 80px 导航栏高度
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    navigate(href);
     setIsMobileMenuOpen(false);
   };
 
@@ -50,11 +40,11 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a
-              href="#hero"
+            <Link
+              to="/"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection('#hero');
+                scrollToSection('/');
               }}
               className="flex items-center gap-2 group"
             >
@@ -71,14 +61,14 @@ const Navigation = () => {
               >
                 Elegant Signs
               </span>
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8" role="navigation" aria-label="Main navigation">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection(link.href);
@@ -91,10 +81,10 @@ const Navigation = () => {
                 >
                   {link.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
-                </a>
+                </Link>
               ))}
               <button
-                onClick={() => scrollToSection('#contact')}
+                onClick={() => scrollToSection('/contact')}
                 className="px-6 py-2.5 bg-gold text-white text-sm font-medium rounded-full hover:bg-gold-dark transition-colors duration-300 shadow-elegant"
                 aria-label="Get a quote"
                 tabIndex={0}
@@ -127,9 +117,9 @@ const Navigation = () => {
       >
         <div className="flex flex-col items-center justify-center h-full gap-8" role="navigation" aria-label="Mobile navigation">
           {navLinks.map((link, index) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.href}
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(link.href);
@@ -140,10 +130,10 @@ const Navigation = () => {
               tabIndex={0}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
           <button
-            onClick={() => scrollToSection('#contact')}
+            onClick={() => scrollToSection('/contact')}
             className="mt-4 px-8 py-3 bg-gold text-white font-medium rounded-full hover:bg-gold-dark transition-colors duration-300"
             aria-label="Get a quote"
             tabIndex={0}

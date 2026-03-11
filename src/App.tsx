@@ -1,47 +1,29 @@
-import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './sections/Navigation';
 import Footer from './sections/Footer';
 import { Toaster } from '@/components/ui/sonner';
-
-// 懒加载组件
-const Hero = lazy(() => import('./sections/Hero'));
-const Products = lazy(() => import('./sections/Products'));
-const Process = lazy(() => import('./sections/Process'));
-const Gallery = lazy(() => import('./sections/Gallery'));
-const Testimonials = lazy(() => import('./sections/Testimonials'));
-const FAQ = lazy(() => import('./sections/FAQ'));
-const Contact = lazy(() => import('./sections/Contact'));
+import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-ivory">
-      <Navigation />
-      <main>
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-          <Hero />
-          <Suspense fallback={<div className="py-24 flex items-center justify-center">Loading products...</div>}>
-            <Products />
-          </Suspense>
-          <Suspense fallback={<div className="py-24 flex items-center justify-center">Loading process...</div>}>
-            <Process />
-          </Suspense>
-          <Suspense fallback={<div className="py-24 flex items-center justify-center">Loading gallery...</div>}>
-            <Gallery />
-          </Suspense>
-          <Suspense fallback={<div className="py-24 flex items-center justify-center">Loading testimonials...</div>}>
-            <Testimonials />
-          </Suspense>
-          <Suspense fallback={<div className="py-24 flex items-center justify-center">Loading FAQ...</div>}>
-            <FAQ />
-          </Suspense>
-          <Suspense fallback={<div className="py-24 flex items-center justify-center">Loading contact...</div>}>
-            <Contact />
-          </Suspense>
-        </Suspense>
-      </main>
-      <Footer />
-      <Toaster position="top-center" />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-ivory">
+        <Navigation />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+        <Toaster position="top-center" />
+      </div>
+    </Router>
   );
 }
 
