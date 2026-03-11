@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './sections/Navigation';
 import Footer from './sections/Footer';
 import { Toaster } from '@/components/ui/sonner';
