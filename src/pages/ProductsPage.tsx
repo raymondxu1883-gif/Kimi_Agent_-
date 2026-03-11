@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Eye, Heart, ArrowRight, Search, ChevronRight, Filter, SortAsc, Sparkles } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface Product {
@@ -109,7 +109,6 @@ const categories = [
 
 const ProductsPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('featured');
@@ -273,13 +272,13 @@ const ProductsPage = () => {
                   />
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <button
-                      onClick={() => setSelectedProduct(product)}
+                    <Link
+                      to={`/products/${product.id}`}
                       className="p-3 bg-white rounded-full text-gray-800 hover:bg-gold hover:text-white transition-colors duration-300"
                       aria-label="View product details"
                     >
                       <Eye className="w-5 h-5" />
-                    </button>
+                    </Link>
                     <button 
                       className="p-3 bg-white rounded-full text-gray-800 hover:bg-gold hover:text-white transition-colors duration-300"
                       aria-label="Add to favorites"
@@ -308,15 +307,15 @@ const ProductsPage = () => {
                     {product.description}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-gold font-semibold text-lg">{product.price}</span>
-                    <button
-                      onClick={() => setSelectedProduct(product)}
-                      className="flex items-center gap-1 text-sm text-gray-600 hover:text-gold transition-colors"
-                    >
-                      Learn More
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
+                  <span className="text-gold font-semibold text-lg">{product.price}</span>
+                  <Link
+                    to={`/products/${product.id}`}
+                    className="flex items-center gap-1 text-sm text-gray-600 hover:text-gold transition-colors"
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
                 </div>
               </div>
             ))}
@@ -368,62 +367,7 @@ const ProductsPage = () => {
         </div>
       </section>
 
-      {/* Product Detail Dialog */}
-      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          {selectedProduct && (
-            <>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden">
-                  <img
-                    src={selectedProduct.image}
-                    alt={selectedProduct.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <DialogHeader>
-                    <DialogTitle className="font-serif text-2xl text-gray-800">
-                      {selectedProduct.name}
-                    </DialogTitle>
-                    <DialogDescription className="text-gold font-semibold text-xl mt-2">
-                      {selectedProduct.price}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="mt-4">
-                    <p className="text-gray-600 leading-relaxed">
-                      {selectedProduct.description}
-                    </p>
-                  </div>
-                  <div className="mt-6">
-                    <h4 className="font-medium text-gray-800 mb-3">Product Features</h4>
-                    <ul className="space-y-2">
-                      {selectedProduct.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-gray-600 text-sm">
-                          <span className="w-1.5 h-1.5 bg-gold rounded-full" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="mt-auto pt-6">
-                    <button
-                      onClick={() => {
-                        setSelectedProduct(null);
-                        scrollToContact();
-                      }}
-                      className="w-full py-3 bg-gold text-white font-medium rounded-full hover:bg-gold-dark transition-colors"
-                    >
-                      Inquire Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+
     </div>
   );
 };
